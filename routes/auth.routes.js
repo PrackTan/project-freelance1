@@ -1,16 +1,16 @@
-import express from 'express';
+import express from "express";
 import {
-	register,
-	login,
-	getAllUsers,
-	getUserById,
-	updateUser,
-	deleteUser,
-	getMe,
-} from '../controllers/auth.controller.js';
-import authorize from '../middlewares/authorize.js';
-import authenticate from '../middlewares/authenticate.js';
-import upload from '../middlewares/upload.js';
+  register,
+  login,
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
+  getMe,
+} from "../controllers/auth.controller.js";
+import authorize from "../middlewares/authorize.js";
+import authenticate from "../middlewares/authenticate.js";
+import upload from "../middlewares/upload.js";
 
 const router = express.Router();
 
@@ -50,14 +50,77 @@ const router = express.Router();
  *         description: Validation errors or user already exists
  */
 
-router.post('/register', upload.single('avatar'), register);
-router.post('/login', login);
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Log in a user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "example@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 token:
+ *                   type: string
+ *                   example: "jwt-token-here"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: "123456"
+ *                     email:
+ *                       type: string
+ *                       example: "example@example.com"
+ *                     username:
+ *                       type: string
+ *                       example: "exampleUser"
+ *       400:
+ *         description: Invalid email or password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid email or password"
+ */
+
+router.post("/register", upload.single("avatar"), register);
+router.post("/login", login);
 
 router.use(authenticate);
 
-router.get('/users', authorize('admin'), getAllUsers);
-router.get('/users/:id', authorize(['admin', 'user']), getUserById);
-router.put('/users/:id', authorize(['admin', 'user']), updateUser);
-router.delete('/users/:id', authorize('admin'), deleteUser);
-router.get('/me', getMe);
+router.get("/users", authorize("admin"), getAllUsers);
+router.get("/users/:id", authorize(["admin", "user"]), getUserById);
+router.put("/users/:id", authorize(["admin", "user"]), updateUser);
+router.delete("/users/:id", authorize("admin"), deleteUser);
+router.get("/me", getMe);
 export default router;
