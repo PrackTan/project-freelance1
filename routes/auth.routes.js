@@ -63,10 +63,10 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - email
+ *               - identifier
  *               - password
  *             properties:
- *               email:
+ *               identifier:
  *                 type: string
  *                 example: "example@example.com"
  *               password:
@@ -92,7 +92,7 @@ const router = express.Router();
  *                     id:
  *                       type: string
  *                       example: "123456"
- *                     email:
+ *                     identifier:
  *                       type: string
  *                       example: "example@example.com"
  *                     username:
