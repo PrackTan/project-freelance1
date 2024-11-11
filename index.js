@@ -15,6 +15,7 @@ import { updateProduct } from './controllers/product.controller.js';
 import setupSwaggerDocs from './swagger.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from './swagger.js';
+import { parser } from '../wearway-be/cloudinary.js'; // Đảm bảo đường dẫn đúng
 
 dotenv.config();
 
@@ -37,9 +38,9 @@ app.use('/api/category', categoryRoutes);
 app.use('/api/comments', commentRoutes);
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } });
+// const upload = multer({ limits: { fileSize: 50 * 1024 * 1024 } });
 
-app.put('/api/products/:id', upload.fields([{ name: 'image' }, { name: 'video' }]), updateProduct);
+app.put('/api/products/:id', parser.fields([{ name: 'image' }, { name: 'video' }]), updateProduct);
 
 app.use('/api/auth', authRoutes);
 

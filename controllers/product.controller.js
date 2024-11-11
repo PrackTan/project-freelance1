@@ -1,23 +1,20 @@
 import { bucket } from '../firebase.js';
 import Product from '../models/product.model.js';
-
+import {cloudinary} from '../cloudinary.js'
 export const createProduct = async (req, res) => {
 	try {
-		const { name, price, sold, reviewsCount, rating, size } = req.body;
+		const { name, price, sold } = req.body;
 		const images = req.files.image;
 
 		// Upload images to Firebase
-		const imageUrls = await Promise.all(images.map(uploadFileToFirebase));
-
+		const imageUrls = await Promise.all(images.map(uploadFileToCloudinary));
 		// Create new product
 		const newProduct = new Product({
 			name,
 			price,
 			sold,
-			reviewsCount,
-			rating,
 			imageUrls,
-			size, // Size options: [1, 2, 3, 4]
+			
 		});
 
 		await newProduct.save();
@@ -53,7 +50,14 @@ const uploadFileToFirebase = (file) => {
 		blobStream.end(file.buffer);
 	});
 };
-
+const uploadFileToCloudinary = (file) => {
+	return new Promise((resolve, reject) => {
+		cloudinary.uploader.upload_stream({ folder: 'products' }, (error, result) => {
+			if (error) return reject(error);
+			resolve(result.secure_url); // Trả về URL công khai của tệp đã tải lên
+		}).end(file.buffer);
+	});
+};
 export const getProducts = async (req, res) => {
 	try {
 		const products = await Product.find();
@@ -75,13 +79,11 @@ export const getProductById = async (req, res) => {
 
 export const searchProducts = async (req, res) => {
 	try {
-		const { name, price, rating, size } = req.body;
+		const { name, price} = req.body;
 
 		const searchCriteria = {};
 		if (name) searchCriteria.name = { $regex: name, $options: 'i' };
 		if (price) searchCriteria.price = price;
-		if (rating) searchCriteria.rating = rating;
-		if (size) searchCriteria.size = size;
 
 		const products = await Product.find(searchCriteria);
 		res.status(200).json(products);
@@ -108,22 +110,19 @@ export const deleteProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const { name, price, sold, reviewsCount, rating, size } = req.body;
+		const { name, price, sold } = req.body;
 
 		const images = req.files.image;
 
 		let imageUrls = [];
 		if (images) {
-			imageUrls = await Promise.all(images.map(uploadFileToFirebase));
+			imageUrls = await Promise.all(images.map(uploadFileToCloudinary));
 		}
 
 		const updatedProductData = {
 			name,
 			price,
-			sold,
-			reviewsCount,
-			rating,
-			size,
+			sold
 		};
 
 		if (imageUrls.length > 0) {
