@@ -20,7 +20,6 @@ const router = express.Router();
  *             required:
  *               - name
  *               - price
- *               - size
  *               - image
  *             properties:
  *               name:
@@ -29,14 +28,6 @@ const router = express.Router();
  *                 type: number
  *               sold:
  *                 type: number
- *               reviewsCount:
- *                 type: number
- *               rating:
- *                 type: number
- *               size:
- *                 type: array
- *                 items:
- *                   type: number
  *               image:
  *                 type: array
  *                 items:
@@ -108,12 +99,6 @@ const router = express.Router();
  *                 type: string
  *               price:
  *                 type: number
- *               rating:
- *                 type: number
- *               size:
- *                 type: array
- *                 items:
- *                   type: number
  *     responses:
  *       200:
  *         description: A list of products matching the criteria
@@ -173,14 +158,6 @@ const router = express.Router();
  *                 type: number
  *               sold:
  *                 type: number
- *               reviewsCount:
- *                 type: number
- *               rating:
- *                 type: number
- *               size:
- *                 type: array
- *                 items:
- *                   type: number
  *               image:
  *                 type: array
  *                 items:
