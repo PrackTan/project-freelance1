@@ -7,7 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const router = express.Router();
 /**
  * @swagger
- * /api/products:
+ * /api/products/create:
  *   post:
  *     summary: Create a new product
  *     tags: [Products]
