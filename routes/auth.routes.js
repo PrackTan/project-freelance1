@@ -112,6 +112,54 @@ const router = express.Router();
  *                   type: string
  *                   example: "Invalid email or password"
  */
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Get information of a specific user by ID using token
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - id
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 example: "123456"
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         description: Bearer token for authentication
+ *         schema:
+ *           type: string
+ *           example: "Bearer jwt-token-here"
+ *     responses:
+ *       200:
+ *         description: User information retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: "123456"
+ *                 username:
+ *                   type: string
+ *                   example: "exampleUser"
+ *                 email:
+ *                   type: string
+ *                   example: "example@example.com"
+ *       401:
+ *         description: Unauthorized, token missing or invalid
+ *       404:
+ *         description: User not found
+ */
 
 router.post("/register", upload.single("avatar"), register);
 router.post("/login", login);

@@ -117,7 +117,7 @@ export const login = async (req, res) => {
 // api get me when login successful check authentication
 export const getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId); // lấy id  từ token
     if (!user) return res.status(404).json({ error: "User not found" });
     res.status(200).json(user);
   } catch (error) {

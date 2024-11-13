@@ -10,9 +10,7 @@ import orderRoutes from "./routes/order.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
 import categoryRoutes from "./routes/category.routes.js";
 import authRoutes from "./routes/auth.routes.js";
-import multer from "multer";
 import { updateProduct } from "./controllers/product.controller.js";
-import setupSwaggerDocs from "./swagger.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.js";
 import { parser } from "./cloudinary.js"; // Đảm bảo đường dẫn đúng
