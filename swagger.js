@@ -20,7 +20,13 @@ const swaggerOptions = {
       ],
     },
   },
-  apis: ["./routes/auth.routes.js", "./routes/product.routes.js"], // Path to the API docs
+  apis: [
+    "./routes/auth.routes.js",
+    "./routes/product.routes.js",
+    "./routes/order.routes.js",
+    "./routes/comment.routes.js",
+    "./routes/category.routes.js",
+  ], // Path to the API docs
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
