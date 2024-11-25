@@ -74,6 +74,13 @@ export const createOrder = async (req, res) => {
         if (!product) {
           throw new Error(`Product not found for ID: ${item.productId}`);
         }
+        // Kiểm tra số lượng tồn kho
+        if (item.quantity > product.sold) {
+          throw new Error(
+            `Product ${product.name} does not have enough stock. Available: ${product.stock}`
+          );
+        }
+
         totalPrice += product.price * item.quantity;
         return {
           product: item.productId,
@@ -82,13 +89,20 @@ export const createOrder = async (req, res) => {
         };
       })
     );
-
+    await Promise.all(
+      products.map(async (item) => {
+        const product = await Product.findById(item.productId);
+        product.sold -= item.quantity;
+        await product.save();
+      })
+    );
     const newOrder = new Order({
       products: productDetails,
       totalPrice,
       customerName,
       customerAddress,
       customerPhone,
+      createdAt: Date.now(),
     });
 
     await newOrder.save();
