@@ -149,8 +149,8 @@ const router = express.Router();
  */
 /**
  * @swagger
- * /api/auth/user:
- *   post:
+ * /api/auth/users:
+ *   get:
  *     summary: Register a new user
  *     tags: [Auth]
  *     requestBody:

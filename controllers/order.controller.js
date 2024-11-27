@@ -65,7 +65,8 @@ export const handleMomoIPN = async (req, res) => {
 
 export const createOrder = async (req, res) => {
   try {
-    const { products, customerName, customerAddress, customerPhone } = req.body;
+    const { products, customerName, customerAddress, customerPhone, idUser } =
+      req.body;
 
     let totalPrice = 0;
     const productDetails = await Promise.all(
@@ -89,6 +90,7 @@ export const createOrder = async (req, res) => {
       customerName,
       customerAddress,
       customerPhone,
+      idUser,
     });
 
     await newOrder.save();
