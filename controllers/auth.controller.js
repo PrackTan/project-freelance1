@@ -29,6 +29,7 @@ export const register = async (req, res) => {
       email,
       phone_number,
       password: hashedPassword,
+      createdAt: Date.now(),
     });
 
     await newUser.save();

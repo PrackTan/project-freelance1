@@ -9,8 +9,8 @@ const UserSchema = new mongoose.Schema({
   avatar: { type: String },
   address: { type: String },
   company: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date },
+  updatedAt: { type: Date },
 });
 
 const User = mongoose.model("User", UserSchema);
