@@ -103,6 +103,7 @@ export const createOrder = async (req, res) => {
       customerName,
       customerAddress,
       customerPhone,
+      idUser,
     });
 
     await newOrder.save();
