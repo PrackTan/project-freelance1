@@ -16,6 +16,7 @@ const orderSchema = new mongoose.Schema({
   customerName: { type: String, required: true },
   customerAddress: { type: String, required: true },
   customerPhone: { type: String, required: true },
+  idUser: { type: String, required: true },
   status: {
     type: String,
     enum: ["pending", "shipped", "delivered", "canceled"],
