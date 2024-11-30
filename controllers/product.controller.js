@@ -15,6 +15,7 @@ export const createProduct = async (req, res) => {
       sold,
       imageUrls,
       createdAt: Date.now(),
+      updateAt: Date.now(),
     });
 
     await newProduct.save();
