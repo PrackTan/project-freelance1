@@ -22,8 +22,8 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "shipped", "delivered", "canceled"],
     default: "pending",
   },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
+  createdAt: { type: Date },
+  updatedAt: { type: Date },
 });
 
 const Order = mongoose.model("Order", orderSchema);

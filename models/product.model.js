@@ -5,8 +5,8 @@ const productSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   sold: { type: Number, default: 0 },
   imageUrls: { type: [String], required: true },
-  createdAt: { type: Date, default: Date.now },
-  updateAt: { type: Date, default: Date.now },
+  createdAt: { type: Date },
+  updateAt: { type: Date },
 });
 
 const Product = mongoose.model("Product", productSchema);
