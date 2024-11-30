@@ -189,7 +189,7 @@ const router = express.Router();
  *     summary: Delete a user by ID
  *     tags: [User]
  *     security:
- *       - bearerAuth: []
+ *       - bearerAuth: [] # Yêu cầu Bearer Token
  *     parameters:
  *       - in: path
  *         name: id
@@ -202,9 +202,10 @@ const router = express.Router();
  *         description: User deleted successfully
  *       404:
  *         description: User not found
- *       400:
- *         description: Invalid request
+ *       401:
+ *         description: Unauthorized access
  */
+
 /**
  * @swagger
  * /api/auth/users/{id}:
@@ -247,6 +248,53 @@ const router = express.Router();
  *         description: User not found
  *       400:
  *         description: Invalid request
+ */
+/**
+ * @swagger
+ * /api/auth/me:
+ *   get:
+ *     summary: Get authenticated user information
+ *     tags: [User]
+ *     components:
+ *       securitySchemes:
+ *         bearerAuth:
+ *           type: http
+ *           scheme: bearer
+ *           bearerFormat: JWT
+ *     security:
+ *       - bearerAuth: [] # Yêu cầu Bearer Token
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         required: true
+ *         schema:
+ *           type: string
+ *           example: "Bearer <your_token>"
+ *         description: Bearer token for authentication
+ *     responses:
+ *       200:
+ *         description: Returns authenticated user's data
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: "63f0cdbfcf1bfb12345"
+ *                 username:
+ *                   type: string
+ *                   example: "john_doe"
+ *                 email:
+ *                   type: string
+ *                   example: "john@example.com"
+ *                 phone_number:
+ *                   type: string
+ *                   example: "1234567890"
+ *       401:
+ *         description: Unauthorized access
+ *       404:
+ *         description: User not found
  */
 
 router.post("/register", upload.single("avatar"), register);

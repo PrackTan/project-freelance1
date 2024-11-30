@@ -9,12 +9,26 @@ const swaggerOptions = {
       title: "API QUẢN LÝ KHO",
       version: "1.0.0",
       description: "API Documentation for backend",
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
+      },
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       contact: {
         name: "Your Name",
       },
       servers: [
         {
-          url: "https://wearway-be.onrender.com",
+          url: "http://localhost:5000",
           description: "Production server",
         },
       ],

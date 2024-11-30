@@ -110,6 +110,10 @@ const router = express.Router();
  *                 type: string
  *                 description: The customer's phone number
  *                 example: "555-1234"
+ *               idUser:
+ *                 type: string
+ *                 description: The ID of the user
+ *                 example: "user123"
  *     responses:
  *       201:
  *         description: Order created successfully
@@ -159,6 +163,10 @@ const router = express.Router();
  *                   type: string
  *                   description: The status of the order
  *                   example: "pending"
+ *                 idUser:
+ *                   type: string
+ *                   description: The ID of the user
+ *                   example: "user123"
  *       400:
  *         description: Bad request
  *         content:
